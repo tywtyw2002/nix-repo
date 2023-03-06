@@ -1,0 +1,16 @@
+keys:
+  - &users
+    - &tyw CB77A3AB52E22C93CA8EC5D1F6CDC71FFDBE2EC3
+
+  - &system
+    - &nix age1jq4sym7mp6ep9qc3wgc9p0utffasj5vt83a2jw4nkx5p8llyppxqf6fkh9
+
+  - &hosts
+
+creation_rules:
+  - path_regex: home/secrets.yaml
+    key_groups:
+    - age:
+      - *nix
+      pgp:
+      - *tyw
