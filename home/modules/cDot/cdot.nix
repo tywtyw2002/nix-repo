@@ -25,7 +25,7 @@ in
     home.activation.cDotCloner = lib.hm.dag.entryAfter [ "reloadSystemd" "onFilesChange" ] ''
       cloneHttpsRepo="https://github.com/tywtyw2002/coshim.dot.git"
       GIT_FULL_REPO="git@github.com:tywtyw2002/coshim.dot.git"
-      GIT_BRANCH="master"
+      GIT_BRANCH="next"
 
       if [ ! -d "$HOME/${cfg.root}" ]; then
         ${pkgs.git}/bin/git -C $HOME clone $cloneHttpsRepo --recurse-submodules --branch $GIT_BRANCH ${cfg.root}
