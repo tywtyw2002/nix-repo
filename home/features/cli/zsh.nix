@@ -18,7 +18,7 @@ in
     };
     cdotZshInit = lib.mkOption {
       type = types.str;
-      default = "zsh_init";
+      default = "init.zsh";
     };
     extraConfig = lib.mkOption {
       default = "";
@@ -42,8 +42,9 @@ in
       home.file.".zshrc".text = concatStringsSep "\n" ([
         "setopt prompt_subst"
         "NIX_Z_CONFIG=${cdotRoot}"
-        "NIX_ZGEN_PATH=$HOME/.local/zgen"
+        "NIX_ZGEN_PATH=$HOME/.zgen"
         "source ${zshInitPath}"
+        (optionalString pkgs.stdenv.isLinux "export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive")
         cfg.extraConfig
       ]);
     })

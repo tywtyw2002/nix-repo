@@ -13,6 +13,7 @@
     # ./bash.nix
     ./zsh.nix
     ./starship.nix
+    ./tmux.nix
 
     ./git.nix
     # ./gpg.nix
