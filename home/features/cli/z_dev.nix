@@ -17,7 +17,6 @@ in {
   };
 
   config = let devCfg = applyLangs cfg.langs cfg; in mkMerge [
-    ({nixpkgs.overlays = [ (import <rust-overlay>) ];})
     (mkIf devCfg.python {
       home.packages = with pkgs; [
         python311
