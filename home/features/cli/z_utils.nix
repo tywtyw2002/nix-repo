@@ -15,6 +15,8 @@ in
       rage
       age-plugin-yubikey
       age
+      ssh-to-age
+      sops
 
       htop
       iperf

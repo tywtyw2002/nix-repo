@@ -21,6 +21,8 @@ with lib;
     inputs.sops-nix.homeManagerModules.sops
   ];
 
+  # systemd.user.startServices = "sd-switch";
+
   programs = {
     home-manager.enable = true;
     git.enable = true;

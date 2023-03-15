@@ -23,6 +23,7 @@ in
       sops_token_path=${config.sops.secrets.cdot_github_token.path}
       if [ "''${sops_token_path:0:2}" == "%s" ]; then
         sops_token_path="$XDG_RUNTIME_DIR''${sops_token_path:2}"
+        TOKEN=`cat $sops_token_path`
       fi
       NIX_AGE_KEY="$HOME/.age-key.txt"
       if [ -f "${./git_token.age}" ] && [ -f "$NIX_AGE_KEY" ]; then

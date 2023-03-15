@@ -2,7 +2,6 @@
 , options
 , pkgs
 , lib
-, cpkgs
 , ...
 }:
 let
@@ -14,8 +13,7 @@ in
 
   config = lib.mkMerge (
     let
-      # starship-c = (pkgs.callPackage (import ../../../pkgs/starship-c) { });
-      starship-c = cpkgs.starship-c;
+      starship-c = pkgs.starship-c;
     in
     [
       {

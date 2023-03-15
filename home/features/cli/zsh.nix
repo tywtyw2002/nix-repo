@@ -35,7 +35,7 @@ in
 
     # config from cdot repo
     (lib.mkIf cfg.cdotEnable {
-      home.packages = with pkgs; [ zsh ];
+      home.packages = with pkgs; [ zsh nix-zsh-completions ];
 
       programs.zsh.enable = false;
 
@@ -44,7 +44,7 @@ in
         "NIX_Z_CONFIG=${cdotRoot}"
         "NIX_ZGEN_PATH=$HOME/.zgen"
         "source ${zshInitPath}"
-        (optionalString pkgs.stdenv.isLinux "export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive")
+        # (optionalString pkgs.stdenv.isLinux "export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive")
         cfg.extraConfig
       ]);
     })

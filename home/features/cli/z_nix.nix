@@ -6,6 +6,7 @@ in
 
   config = lib.mkIf cfg {
     home.packages = with pkgs; [
+      nil
       nurl
       nixpkgs-fmt
       nix-prefetch

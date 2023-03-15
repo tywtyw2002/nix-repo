@@ -1,14 +1,13 @@
-{ inputs
-, outputs
-, config
-, pkgs
+{
+config
 , ...
 }: {
-  imports = [
-    ../.
-  ];
+  # imports = [
+  #   ../.
+  # ];
 
   home.username = "tyw";
+  home.stateVersion = "23.05";
 
   cdot.enable = true;
   cnvim.enable = true;
