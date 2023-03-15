@@ -1,0 +1,20 @@
+{ inputs
+, outputs
+, ...
+}:
+with inputs.nixpkgs.lib;
+let
+  mkHost = path:
+    nixosSystem {
+      # inherit system;
+      specialArgs = { inherit inputs outputs; };
+      modules = [
+        {
+          networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
+        }
+        (import path)
+      ];
+    };
+in {
+  procurer-in-yeg = mkHost ./procurer-in-yeg;
+}

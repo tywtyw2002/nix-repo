@@ -40,12 +40,11 @@
       forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
     in
     {
+      rootPath = self;
       # nixosModules = import ./modules;
+      nixosModules = {};
 
-      # overlays = import ./overlays { inherit inputs outputs; };
-      overlays = {
-        rust-overlay = inputs.rust-overlay.overlays.default;
-      };
+      overlays = import ./overlays { inherit inputs outputs; };
 
       formatter = forEachPkgs (pkgs: pkgs.nixpkgs-fmt);
       packages = forEachPkgs (pkgs: import ./pkgs { inherit pkgs; });
@@ -53,8 +52,7 @@
 
       # templates = import ./templates;
 
-      # nixosConfigurations = import ./hosts/z
-      # homeConfigurations = import ./home/z { inherit lib; };
+      nixosConfigurations = import ./hosts/z { inherit inputs outputs; };
       homeConfigurations = import ./home/z { inherit inputs outputs; };
     };
 }
