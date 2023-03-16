@@ -1,9 +1,11 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./services
 
     ../../globals
     ../../optionals/pkgs/basic.nix
+
     ../../users/tyw.nix
     ../../users/root.nix
   ];
