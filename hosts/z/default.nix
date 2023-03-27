@@ -17,4 +17,5 @@ let
     };
 in {
   procurer-in-yeg = mkHost ./procurer-in-yeg;
+  rokh-in-sea = mkHost ./rokh-in-sea;
 }
