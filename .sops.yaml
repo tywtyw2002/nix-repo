@@ -7,17 +7,31 @@ keys:
 
   - &hosts
     - &procurer-in-yeg age1fr8pfca48cnnu8pupumtdtcugzlxsffgdhywzcvu2t7e39kc6vaqqmtedq
+    - &rokh-in-sea age1kdrpl2nqvav43jvr49qcttjsvjjlrt50rdxurd7hkc80hj5jd97s7353gl
 
 creation_rules:
-  - path_regex: home/secrets.yaml
+  - path_regex: home/secrets.*
     key_groups:
     - age:
       - *nix
       pgp:
       - *tyw
-  - path_regex: hosts/secrets.yaml
+  - path_regex: hosts/secrets.*
     key_groups:
     - age:
         *hosts
+      pgp:
+      - *tyw
+  # per host rules
+  - path_regex: hosts/z/procurer-in-yeg/secrets.*
+    key_groups:
+    - age:
+      - *procurer-in-yeg
+      pgp:
+      - *tyw
+  - path_regex: hosts/z/rokh-in-sea/secrets.*
+    key_groups:
+    - age:
+      - *rokh-in-sea
       pgp:
       - *tyw
