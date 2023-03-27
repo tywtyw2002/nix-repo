@@ -12,6 +12,7 @@
       ./locale.nix
       ./openssh.nix
       ./options.nix
+      ./vault.nix
     ] ++ (builtins.attrValues outputs.nixosModules);
 
   home-manager = {
