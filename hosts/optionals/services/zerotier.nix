@@ -21,7 +21,7 @@ with lib; let
         else name;
       netConfig = concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${mapOption v}") (filterAttrs (n: v: hasPrefix "allow" n) values));
     in
-    assert ! (hasPrefix "Z-" netId); ''
+    assert ! (hasPrefix "zt-" netId); ''
       touch "/var/lib/zerotier-one/networks.d/${netId}.conf"
       if [[ ! -e "/var/lib/zerotier-one/networks.d/${netId}.local.conf" ]]; then
         echo "${netConfig}" > "/var/lib/zerotier-one/networks.d/${netId}.local.conf"

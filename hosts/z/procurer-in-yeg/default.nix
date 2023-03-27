@@ -5,6 +5,7 @@
 
     ../../globals
     ../../optionals/pkgs/basic.nix
+    ../../optionals/services/zerotier.nix
 
     ../../users/tyw.nix
     ../../users/root.nix
