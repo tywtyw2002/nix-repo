@@ -31,6 +31,8 @@ in
         ${pkgs.git}/bin/git -C $HOME clone $cloneHttpsRepo --recurse-submodules --branch $GIT_BRANCH ${cfg.root}
         ${pkgs.git}/bin/git -C $HOME/${cfg.root} remote set-url origin $GIT_FULL_REPO
 
+        # fix git missing
+        export PATH=${pkgs.git}/bin:$PATH
         ${chezmoi}/bin/chezmoi -S $HOME/${cfg.root} init --apply
       fi
     '';

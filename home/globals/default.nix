@@ -31,6 +31,6 @@ with lib;
   home = {
     username = mkDefault "tyw";
     homeDirectory = mkDefault "/home/${config.home.username}";
-    stateVersion = mkDefault "22.11";
+    stateVersion = mkDefault "23.05";
   };
 }
