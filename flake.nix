@@ -25,6 +25,11 @@
     # flake-utils.url = "github:numtide/flake-utils";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
+
+    # nixos-generators = {
+    #   url = "github:nix-community/nixos-generators";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
@@ -36,8 +41,9 @@
     let
       inherit (self) outputs;
 
-      forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
+      forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
       forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
+      # lxcTarball = import ./machines/lxc/z/default-gen.nix { inherit inputs outputs; };
     in
     {
       rootPath = self;
@@ -48,11 +54,12 @@
 
       formatter = forEachPkgs (pkgs: pkgs.nixpkgs-fmt);
       packages = forEachPkgs (pkgs: import ./pkgs { inherit pkgs; });
+      # // {"x86_64-linux" = lxcTarball;};
       # devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
 
       # templates = import ./templates;
 
-      nixosConfigurations = import ./hosts/z { inherit inputs outputs; };
+      nixosConfigurations = import ./hosts/z { inherit inputs outputs; } // (import ./machines/lxc/z { inherit inputs outputs; });
       homeConfigurations = import ./home/z { inherit inputs outputs; };
     };
 }

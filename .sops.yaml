@@ -8,6 +8,7 @@ keys:
   - &hosts
     - &procurer-in-yeg age1fr8pfca48cnnu8pupumtdtcugzlxsffgdhywzcvu2t7e39kc6vaqqmtedq
     - &rokh-in-sea age1kdrpl2nqvav43jvr49qcttjsvjjlrt50rdxurd7hkc80hj5jd97s7353gl
+    - &lif-in-yul age1wr4v6d7ajx3e67lt2delkqqvd966tqqt67aq8dkm0ducxlhnupdqlyql0z
 
 creation_rules:
   - path_regex: home/secrets.*
@@ -33,5 +34,11 @@ creation_rules:
     key_groups:
     - age:
       - *rokh-in-sea
+      pgp:
+      - *tyw
+  - path_regex: hosts/z/lif-in-yul/secrets.*
+    key_groups:
+    - age:
+      - *lif-in-yul
       pgp:
       - *tyw

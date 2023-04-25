@@ -18,4 +18,5 @@ let
 in {
   procurer-in-yeg = mkHost ./procurer-in-yeg;
   rokh-in-sea = mkHost ./rokh-in-sea;
+  lif-in-yul = mkHost ./lif-in-yul;
 }
