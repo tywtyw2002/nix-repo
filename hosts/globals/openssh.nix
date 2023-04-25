@@ -37,7 +37,7 @@ in
           publicKeyFile = pubKey name;
           extraHostNames = lib.optional (name == hostname) "localhost";
         })
-        hosts;
+        (lib.filterAttrs (n: v: !lib.hasPrefix "lxc" n) hosts);
   };
 
   security.pam.enableSSHAgentAuth = true;

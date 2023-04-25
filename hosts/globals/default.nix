@@ -31,5 +31,7 @@
   networking.domain = "c70.us";
   networking.search = [ "c70.us" ];
 
+  networking.firewall.enable = false;
+
   users.mutableUsers = lib.mkDefault false;
 }
