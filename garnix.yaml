@@ -1,4 +1,5 @@
 builds:
- exclude: []
+ exclude:
+ - 'packages.*.starship-c'
  include:
- - 'packages.*.strongswan'
+ - 'packages.*'
