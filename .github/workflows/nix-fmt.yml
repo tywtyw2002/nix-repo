@@ -32,15 +32,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create PR
-        uses: devops-infra/action-pull-request@v0.5.5
+        uses: repo-sync/pull-request@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: master
-
-      # - name: Create PR
-      #   uses: peter-evans/create-pull-request@v5
-      #   with:
-      #     commit-message: "style(bot): nix auto fmt"
-      #     delete-branch: true
-      #     branch: ci
-      #     # base: master
+          destination_branch: master
+          pr_allow_empty: false
+          pr_draft: false
