@@ -4,12 +4,13 @@ let
   # rust-overlay = import <rust-overlay> {};
   cfg = config.cli.dev;
   applyLangs = langs: finalConfig:
-    finalConfig // listToAttrs (map (x: {name=x; value=true;}) langs);
-in {
+    finalConfig // listToAttrs (map (x: { name = x; value = true; }) langs);
+in
+{
   options.cli.dev = {
     langs = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
     };
     python = mkEnableOption "cli.dev.python";
     lua = mkEnableOption "cli.dev.lua";

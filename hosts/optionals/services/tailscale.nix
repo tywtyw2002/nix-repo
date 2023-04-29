@@ -5,7 +5,8 @@ with lib;
 let
   cfg = config.services.tailscale;
   isNetworkd = config.networking.useNetworkd;
-in {
+in
+{
   disabledModules = [ "services/networking/tailscale.nix" ];
 
   options.services.tailscale = {
@@ -38,7 +39,7 @@ in {
       path = [
         # config.networking.resolvconf.package # for configuring DNS in some configs
         # pkgs.procps     # for collecting running services (opt-in feature)
-        pkgs.glibc      # for `getent` to look up user shells
+        pkgs.glibc # for `getent` to look up user shells
       ];
       serviceConfig.Environment = [
         "PORT=${toString cfg.port}"

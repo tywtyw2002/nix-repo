@@ -1,3 +1,3 @@
 {
-    services.frr.zebra.enable = true;
+  services.frr.zebra.enable = true;
 }

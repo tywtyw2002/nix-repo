@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
-# , pkg-config
+  # , pkg-config
 , c-ares
 }:
 stdenv.mkDerivation rec {

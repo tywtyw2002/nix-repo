@@ -4,7 +4,7 @@
 }:
 with inputs.nixpkgs.lib;
 let
-  mkContainer= path:
+  mkContainer = path:
     nixosSystem {
       # inherit system;
       system = "x86_64-linux";
@@ -13,6 +13,7 @@ let
         (import path)
       ];
     };
-in {
+in
+{
   lxc_unifi = mkContainer ./unifi;
 }

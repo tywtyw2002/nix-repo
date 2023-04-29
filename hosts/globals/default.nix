@@ -18,7 +18,7 @@
   home-manager = {
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs outputs; };
-    sharedModules = ["${outputs.rootPath}/home"];
+    sharedModules = [ "${outputs.rootPath}/home" ];
   };
 
   nixpkgs = {
