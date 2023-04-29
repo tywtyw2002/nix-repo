@@ -2,8 +2,8 @@ name: Format Nix Code
 
 on:
   push:
-    paths:
-      - "**.nix"
+    # paths:
+    #   - "**.nix"
     branches:
       - ci
       - 'ci/**'
@@ -25,12 +25,24 @@ jobs:
         run: nix fmt
 
       - name: Commit and push changes
+        env:
+          GIT_AUTHOR_NAME: "github-actions[bot]"
+          GIT_AUTHOR_EMAIL: "<github-actions[bot]@users.noreply.github.com>"
+          GIT_COMMITTER_NAME: "github-actions[bot]"
+          GIT_COMMITTER_EMAIL: "<github-actions[bot]@users.noreply.github.com>"
         run: |
           git commit -am "style(bot): nix auto fmt"
 
       - name: Create PR
-        uses: peter-evans/create-pull-request@v5
+        uses: devops-infra/action-pull-request@v0.5.5
         with:
-          delete-branch: true
-          branch: pr/auto
-          base: master
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          target_branch: master
+
+      # - name: Create PR
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     commit-message: "style(bot): nix auto fmt"
+      #     delete-branch: true
+      #     branch: ci
+      #     # base: master
