@@ -25,13 +25,11 @@ jobs:
         run: nix fmt
 
       - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "style(bot): nix auto fmt"
         env:
-          GIT_AUTHOR_NAME: "github-actions[bot]"
-          GIT_AUTHOR_EMAIL: "<github-actions[bot]@users.noreply.github.com>"
-          GIT_COMMITTER_NAME: "github-actions[bot]"
-          GIT_COMMITTER_EMAIL: "<github-actions[bot]@users.noreply.github.com>"
-        run: |
-          git commit -am "style(bot): nix auto fmt"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create PR
         uses: devops-infra/action-pull-request@v0.5.5
