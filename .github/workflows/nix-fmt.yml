@@ -26,6 +26,10 @@ jobs:
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "nix fmt"
+          commit_message: "style(bot): nix auto fmt"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v5
+          
