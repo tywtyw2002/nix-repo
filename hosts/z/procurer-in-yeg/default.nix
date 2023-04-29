@@ -5,7 +5,8 @@
 
     ../../globals
     ../../optionals/pkgs/basic.nix
-    ../../optionals/services/zerotier.nix
+    # ../../optionals/services/zerotier.nix
+    ../../optionals/services/dmvpn
 
     ../../users/tyw.nix
     ../../users/root.nix
