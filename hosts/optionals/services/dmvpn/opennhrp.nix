@@ -30,7 +30,7 @@ in
 
     register = mkOption {
       type = types.submodule mkMapOption;
-      default = {};
+      default = { };
     };
 
     maps = mkOption {
@@ -49,7 +49,7 @@ in
       {
         assertion = ((!isNull cfg.register.ipCidr) || cfg.isHub);
         message = "Opennhrp must set hub mode or config register info.";
-       }
+      }
     ];
     environment.systemPackages = [ pkgs.opennhrp ]; # for the CLI
     systemd.packages = [ pkgs.opennhrp ];
@@ -77,7 +77,7 @@ in
     environment.etc."opennhrp/opennhrp-script".source = pkgs.substituteAll {
       src = ./opennhrp-script;
       ikeName = n;
-      envPath = concatStringsSep ":" ["${pkgs.iproute2}/bin" "${pkgs.strongswan}/bin" "${pkgs.gnugrep}/bin"];
+      envPath = concatStringsSep ":" [ "${pkgs.iproute2}/bin" "${pkgs.strongswan}/bin" "${pkgs.gnugrep}/bin" ];
     };
     environment.etc."opennhrp/opennhrp-script".mode = "755";
 
