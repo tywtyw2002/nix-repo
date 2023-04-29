@@ -1,10 +1,10 @@
 {
-    imports = [
-        ../../globals
-        ./unifi.nix
-    ];
+  imports = [
+    ../../globals
+    ./unifi.nix
+  ];
 
-    services.unifi.enable = true;
+  services.unifi.enable = true;
 
-    system.stateVersion = "22.11";
+  system.stateVersion = "22.11";
 }

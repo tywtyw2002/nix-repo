@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
+    [
+      (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -17,12 +18,14 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/1a96a504-4f87-4862-8253-f0c3fe0b8980";
+    {
+      device = "/dev/disk/by-uuid/1a96a504-4f87-4862-8253-f0c3fe0b8980";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/CD63-D26C";
+    {
+      device = "/dev/disk/by-uuid/CD63-D26C";
       fsType = "vfat";
     };
 

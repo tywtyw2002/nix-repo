@@ -1,11 +1,11 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
 
-    programs.zsh.enable = true;
+  programs.zsh.enable = true;
 
-    environment.systemPackages = [
-        pkgs.vim
-        pkgs.neovim
-        pkgs.wget
-    ];
+  environment.systemPackages = [
+    pkgs.vim
+    pkgs.neovim
+    pkgs.wget
+  ];
 }

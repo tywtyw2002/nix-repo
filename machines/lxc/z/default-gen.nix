@@ -4,7 +4,7 @@
 }:
 with inputs.nixos-generators;
 let
-  mkContainer= path:
+  mkContainer = path:
     nixosGenerate {
       # inherit system;
       system = "x86_64-linux";
@@ -14,6 +14,7 @@ let
         (import path)
       ];
     };
-in {
+in
+{
   unifi = mkContainer ./unifi;
 }

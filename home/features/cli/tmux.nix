@@ -9,7 +9,7 @@ let
   cdotEnable = config.cdot.enable;
 in
 {
-  options.cli.tmux = lib.mkEnableOption "cli.tmux" // { default=true; };
+  options.cli.tmux = lib.mkEnableOption "cli.tmux" // { default = true; };
 
   config = lib.mkMerge (
     [

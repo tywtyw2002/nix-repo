@@ -1,7 +1,6 @@
-{
-  lib,
-  options,
-  ...
+{ lib
+, options
+, ...
 }:
 {
   options.homeOverride = with lib; mkOption {

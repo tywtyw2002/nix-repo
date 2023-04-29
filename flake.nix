@@ -48,7 +48,7 @@
     {
       rootPath = self;
       # nixosModules = import ./modules;
-      nixosModules = {};
+      nixosModules = { };
 
       overlays = import ./overlays { inherit inputs outputs; };
 

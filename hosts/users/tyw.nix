@@ -1,6 +1,6 @@
 { pkgs, config, lib, inputs, outputs, ... }:
 let
-  inherit (import "${outputs.rootPath}/utils/hm.nix" {inherit inputs outputs;}) mkImport;
+  inherit (import "${outputs.rootPath}/utils/hm.nix" { inherit inputs outputs; }) mkImport;
 in
 {
   users.users.tyw = {

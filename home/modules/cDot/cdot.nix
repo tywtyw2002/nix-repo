@@ -20,7 +20,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [pkgs.chezmoi];
+    home.packages = [ pkgs.chezmoi ];
 
     home.activation.cDotCloner = lib.hm.dag.entryAfter [ "reloadSystemd" "onFilesChange" ] ''
       cloneHttpsRepo="https://github.com/tywtyw2002/coshim.dot.git"
