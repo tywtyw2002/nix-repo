@@ -1,3 +1,3 @@
 {
-  services.frr.nhrp.enable = true;
+  services.frr.zebra.enable = true;
 }

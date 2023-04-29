@@ -5,7 +5,8 @@
 
     ../../globals
     ../../optionals/pkgs/basic.nix
-    ../../optionals/services/tailscale.nix
+    # ../../optionals/services/tailscale.nix
+    ../../optionals/services/dmvpn
 
     ../../users/tyw.nix
     ../../users/root.nix

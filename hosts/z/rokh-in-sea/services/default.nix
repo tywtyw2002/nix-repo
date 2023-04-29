@@ -4,5 +4,6 @@
     # ./tailscale.nix
     # ./frr.nix
     ./podman.nix
+    ./dmvpn.nix
   ];
 }
