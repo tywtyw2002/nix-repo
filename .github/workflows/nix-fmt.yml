@@ -4,8 +4,9 @@ on:
   push:
     paths:
       - "**.nix"
-    branches-ignore:
-      - master
+    branches:
+      - ci
+      - 'ci/**'
 
 jobs:
   format-code:
@@ -24,11 +25,8 @@ jobs:
         run: nix fmt
 
       - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "style(bot): nix auto fmt"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git commit -am "style(bot): nix auto fmt"
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v5
@@ -36,4 +34,3 @@ jobs:
           delete-branch: true
           branch: pr/auto
           base: master
-          
