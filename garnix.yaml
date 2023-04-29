@@ -2,4 +2,4 @@ builds:
  exclude:
  - 'packages.*.starship-c'
  include:
- - 'packages.*'
+ - 'packages.*.*'
