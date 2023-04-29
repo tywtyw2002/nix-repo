@@ -1,0 +1,44 @@
+#!/bin/sh
+
+_nhrp_config="/etc/opennhrp/opennhrp.conf"
+_type="hub"
+_script_name="opennhrp"
+
+PATH=@envPath@
+
+if ! grep "$NHRP_INTERFACE" $_nhrp_config | grep "hub"> /dev/null 2>&1; then
+    _type="spoke"
+fi
+
+case $1 in
+interface-up)
+    ip route flush proto 42 dev $NHRP_INTERFACE
+    ip neigh flush dev $NHRP_INTERFACE
+    ;;
+peer-register)
+    ;;
+peer-up)
+    if [ -n "$NHRP_DESTMTU" ]; then
+        ARGS=`ip route get $NHRP_DESTNBMA from $NHRP_SRCNBMA | head -1`
+        ip route add $ARGS proto 42 mtu $NHRP_DESTMTU
+    fi
+    if [[ ${_type} == "spoke" ]]; then
+            swanctl -t -S $NHRP_SRCNBMA -R $NHRP_DESTNBMA > /dev/null 2>&1
+            swanctl -i -c "@ikeName@" -S $NHRP_SRCNBMA -R $NHRP_DESTNBMA || exit 1
+    fi
+    ;;
+peer-down)
+    swanctl -t -S $NHRP_SRCNBMA -R $NHRP_DESTNBMA || exit 1
+    ip route del $NHRP_DESTNBMA src $NHRP_SRCNBMA proto 42
+    ;;
+route-up)
+    ip route replace $NHRP_DESTADDR/$NHRP_DESTPREFIX proto 42 via $NHRP_NEXTHOP dev $NHRP_INTERFACE
+    ip route flush cache
+    ;;
+route-down)
+    ip route del $NHRP_DESTADDR/$NHRP_DESTPREFIX proto 42
+    ip route flush cache
+    ;;
+esac
+
+exit 0
