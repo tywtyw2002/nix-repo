@@ -1,5 +1,6 @@
 { outputs
 , inputs
+,
 }: {
   rust-overlay = inputs.rust-overlay.overlays.default;
 

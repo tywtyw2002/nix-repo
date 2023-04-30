@@ -3,13 +3,13 @@
 , outputs
 , modulesPath
 , ...
-}:
-{
+}: {
   imports =
     [
       (modulesPath + "/virtualisation/proxmox-lxc.nix")
       ./nix.nix
-    ] ++ (builtins.attrValues outputs.nixosModules);
+    ]
+    ++ (builtins.attrValues outputs.nixosModules);
 
   nixpkgs = {
     overlays = builtins.attrValues outputs.overlays;

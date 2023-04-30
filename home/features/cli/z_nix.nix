@@ -1,5 +1,11 @@
-{ config, options, pkgs, lib, ... }:
-let cfg = config.cli.nix;
+{ config
+, options
+, pkgs
+, lib
+, ...
+}:
+let
+  cfg = config.cli.nix;
 in
 {
   options.cli.nix = lib.mkEnableOption "cli.nix";

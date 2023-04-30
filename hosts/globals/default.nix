@@ -2,8 +2,7 @@
 , inputs
 , outputs
 , ...
-}:
-{
+}: {
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
@@ -13,7 +12,8 @@
       ./openssh.nix
       ./options.nix
       ./vault.nix
-    ] ++ (builtins.attrValues outputs.nixosModules);
+    ]
+    ++ (builtins.attrValues outputs.nixosModules);
 
   home-manager = {
     useUserPackages = true;

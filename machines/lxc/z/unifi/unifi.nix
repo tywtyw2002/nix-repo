@@ -1,6 +1,11 @@
-{ config, options, lib, pkgs, utils, ... }:
-with lib;
-let
+{ config
+, options
+, lib
+, pkgs
+, utils
+, ...
+}:
+with lib; let
   cfg = config.services.unifi;
   stateDir = "/var/lib/unifi";
   cmd = ''
@@ -14,7 +19,6 @@ in
   disabledModules = [ "services/networking/unifi.nix" ];
 
   options = {
-
     services.unifi.enable = mkOption {
       type = types.bool;
       default = false;
@@ -25,7 +29,10 @@ in
 
     services.unifi.jrePackage = mkOption {
       type = types.package;
-      default = if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3") then pkgs.jdk11 else pkgs.jre8;
+      default =
+        if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3")
+        then pkgs.jdk11
+        else pkgs.jre8;
       defaultText = literalExpression ''if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3" then pkgs.jdk11 else pkgs.jre8'';
       description = lib.mdDoc ''
         The JRE package to use. Check the release notes to ensure it is supported.
@@ -81,11 +88,9 @@ in
         JVM will decide this value at runtime.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
-
     users.users.unifi = {
       isSystemUser = true;
       group = "unifi";
@@ -191,7 +196,6 @@ in
         MemoryDenyWriteExecute = false;
       };
     };
-
   };
   imports = [
     (mkRemovedOptionModule [ "services" "unifi" "dataDir" ] "You should move contents of dataDir to /var/lib/unifi/data")

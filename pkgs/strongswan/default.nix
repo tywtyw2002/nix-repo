@@ -27,12 +27,11 @@
 , networkmanager
 , darwin
 , nixosTests
+,
 }:
-
 # Note on curl support: If curl is built with gnutls as its backend, the
 # strongswan curl plugin may break.
 # See https://wiki.strongswan.org/projects/strongswan/wiki/Curl for more info.
-
 stdenv.mkDerivation rec {
   pname = "strongswan";
   version = "5.9.8"; # Make sure to also update <nixpkgs/nixos/modules/services/networking/strongswan-swanctl/swanctl-params.nix> when upgrading!

@@ -11,19 +11,17 @@ in
 {
   options.cli.tmux = lib.mkEnableOption "cli.tmux" // { default = true; };
 
-  config = lib.mkMerge (
-    [
-      {
-        programs.tmux = {
-          enable = cfg && !cdotEnable;
-        };
-      }
+  config = lib.mkMerge [
+    {
+      programs.tmux = {
+        enable = cfg && !cdotEnable;
+      };
+    }
 
-      (lib.mkIf cdotEnable {
-        home.packages = [
-          pkgs.tmux
-        ];
-      })
-    ]
-  );
+    (lib.mkIf cdotEnable {
+      home.packages = [
+        pkgs.tmux
+      ];
+    })
+  ];
 }

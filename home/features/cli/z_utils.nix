@@ -1,5 +1,11 @@
-{ config, options, pkgs, lib, ... }:
-let cfg = config.cli.utils;
+{ config
+, options
+, pkgs
+, lib
+, ...
+}:
+let
+  cfg = config.cli.utils;
 in
 {
   options.cli.utils = lib.mkEnableOption "cli.utils" // { default = true; };

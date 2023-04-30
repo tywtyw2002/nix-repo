@@ -1,8 +1,9 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{ config
+, lib
+, pkgs
+, ...
+}:
+with lib; let
   cfg = config.services.tailscale;
   isNetworkd = config.networking.useNetworkd;
 in
@@ -28,7 +29,6 @@ in
       type = types.int;
       default = 1420;
     };
-
   };
 
   config = mkIf cfg.enable {

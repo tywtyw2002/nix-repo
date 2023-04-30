@@ -1,8 +1,9 @@
 { lib
 , stdenv
 , fetchFromGitHub
-  # , pkg-config
-, c-ares
+, # , pkg-config
+  c-ares
+,
 }:
 stdenv.mkDerivation rec {
   pname = "opennhrp";

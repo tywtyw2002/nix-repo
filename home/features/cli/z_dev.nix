@@ -1,10 +1,20 @@
-{ config, options, pkgs, lib, ... }:
-with lib;
-let
+{ config
+, options
+, pkgs
+, lib
+, ...
+}:
+with lib; let
   # rust-overlay = import <rust-overlay> {};
   cfg = config.cli.dev;
   applyLangs = langs: finalConfig:
-    finalConfig // listToAttrs (map (x: { name = x; value = true; }) langs);
+    finalConfig
+    // listToAttrs (map
+      (x: {
+        name = x;
+        value = true;
+      })
+      langs);
 in
 {
   options.cli.dev = {
@@ -17,39 +27,42 @@ in
     rust = mkEnableOption "cli.dev.rust";
   };
 
-  config = let devCfg = applyLangs cfg.langs cfg; in mkMerge [
-    (mkIf devCfg.python {
-      home.packages = with pkgs; [
-        python311
+  config =
+    let
+      devCfg = applyLangs cfg.langs cfg;
+    in
+    mkMerge [
+      (mkIf devCfg.python {
+        home.packages = with pkgs; [
+          python311
 
-        # pylsp
-        pyright
-        ruff
+          # pylsp
+          pyright
+          ruff
 
-        pdm
-      ];
-    })
+          pdm
+        ];
+      })
 
-    (mkIf devCfg.lua {
-      home.packages = with pkgs; [
-        lua5_4_compat
-        lua54Packages.luarocks
+      (mkIf devCfg.lua {
+        home.packages = with pkgs; [
+          lua5_4_compat
+          lua54Packages.luarocks
 
-        stylua
-      ];
-    })
+          stylua
+        ];
+      })
 
-    (mkIf devCfg.rust {
-      home.packages = with pkgs; [
-        (rust-bin.selectLatestNightlyWith (toolchain: toolchain.minimal))
-        # cargo
+      (mkIf devCfg.rust {
+        home.packages = with pkgs; [
+          (rust-bin.selectLatestNightlyWith (toolchain: toolchain.minimal))
+          # cargo
 
-        rustfmt
-        clippy
+          rustfmt
+          clippy
 
-        rust-analyzer
-      ];
-    })
-  ];
-
+          rust-analyzer
+        ];
+      })
+    ];
 }

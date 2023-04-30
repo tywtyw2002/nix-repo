@@ -3,8 +3,8 @@
 , pkgs
 , lib
 , ...
-}: with lib;
-let
+}:
+with lib; let
   cfg = config.cli.aria2;
 in
 {
