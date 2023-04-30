@@ -8,13 +8,14 @@ in
     home.packages = with pkgs; [
       nil
       nurl
+      alejandra
       nixpkgs-fmt
       nix-prefetch
-      rnix-lsp
 
       # nix-diff
       # nix-du
       # nix-index
+      nix-tree
     ];
   };
 }
