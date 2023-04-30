@@ -1,8 +1,4 @@
-{ config
-, ...
-}:
-
-{
+{ config, ... }: {
   services.zerotierone.enable = true;
   services.zerotierone.networks = {
     "zt-net-core" = {

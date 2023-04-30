@@ -2,8 +2,7 @@
 , outputs
 , ...
 }:
-with inputs.nixos-generators;
-let
+with inputs.nixos-generators; let
   mkContainer = path:
     nixosGenerate {
       # inherit system;

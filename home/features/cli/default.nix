@@ -1,5 +1,9 @@
-{ config, options, pkgs, lib, ... }:
-{
+{ config
+, options
+, pkgs
+, lib
+, ...
+}: {
   imports = [
     # groups
     ./z_basic.nix

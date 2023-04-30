@@ -1,11 +1,16 @@
-{ inputs, lib, pkgs, config, outputs, ... }:
-with lib;
-{
+{ inputs
+, lib
+, pkgs
+, config
+, outputs
+, ...
+}:
+with lib; {
   nixpkgs = {
     overlays = builtins.attrValues outputs.overlays;
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
     };
   };
 

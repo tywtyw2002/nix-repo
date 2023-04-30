@@ -3,8 +3,8 @@
 , pkgs
 , lib
 , ...
-}: with lib;
-let
+}:
+with lib; let
   cfg = config.cli.zsh;
   cdotRoot = "$HOME/.config/zsh"; # config.cdot.root
   zshInitPath = "${cdotRoot}/${cfg.cdotZshInit}";
@@ -28,9 +28,11 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf (!cfg.cdotEnable) {
-      programs.zsh = {
-        enable = true;
-      } // cfg.zshConfig;
+      programs.zsh =
+        {
+          enable = true;
+        }
+        // cfg.zshConfig;
     })
 
     # config from cdot repo
@@ -39,16 +41,14 @@ in
 
       programs.zsh.enable = false;
 
-      home.file.".zshrc".text = concatStringsSep "\n" ([
+      home.file.".zshrc".text = concatStringsSep "\n" [
         "setopt prompt_subst"
         "NIX_Z_CONFIG=${cdotRoot}"
         "NIX_ZGEN_PATH=$HOME/.zgen"
         "source ${zshInitPath}"
         # (optionalString pkgs.stdenv.isLinux "export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive")
         cfg.extraConfig
-      ]);
+      ];
     })
   ];
-
-
 }

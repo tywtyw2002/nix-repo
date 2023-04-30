@@ -2,8 +2,7 @@
 , outputs
 , ...
 }:
-with inputs.nixpkgs.lib;
-let
+with inputs.nixpkgs.lib; let
   mkContainer = path:
     nixosSystem {
       # inherit system;

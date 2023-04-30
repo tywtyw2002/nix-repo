@@ -1,4 +1,10 @@
-{ pkgs, config, lib, inputs, outputs, ... }:
+{ pkgs
+, config
+, lib
+, inputs
+, outputs
+, ...
+}:
 let
   inherit (import "${outputs.rootPath}/utils/hm.nix" { inherit inputs outputs; }) mkImport;
 in
@@ -22,5 +28,5 @@ in
     neededForUsers = true;
   };
 
-  home-manager.users.tyw = (mkImport "${outputs.rootPath}/home/z/tyw.nix" config.homeOverride);
+  home-manager.users.tyw = mkImport "${outputs.rootPath}/home/z/tyw.nix" config.homeOverride;
 }

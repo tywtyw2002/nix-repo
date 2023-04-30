@@ -47,7 +47,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = ((!isNull cfg.register.ipCidr) || cfg.isHub);
+        assertion = (!isNull cfg.register.ipCidr) || cfg.isHub;
         message = "Opennhrp must set hub mode or config register info.";
       }
     ];
@@ -57,22 +57,22 @@ in
     # opennhrp.conf
     environment.etc."opennhrp/opennhrp.conf".text =
       let
-        body = [
-          "holding-time 1800"
-          "shortcut"
-          "redirect"
-          "non-caching"
-          "multicast dynamic"
-        ]
-        ++ optionals (!cfg.isHub) [ "${mapFormat cfg.register} register" ]
-        ++ optionals (!isNull cfg.authKey) [ "cisco-authentication ${toString cfg.authKey}" ]
-        ++ optionals (!isNull cfg.maps) cfg.maps;
+        body =
+          [
+            "holding-time 1800"
+            "shortcut"
+            "redirect"
+            "non-caching"
+            "multicast dynamic"
+          ]
+          ++ optionals (!cfg.isHub) [ "${mapFormat cfg.register} register" ]
+          ++ optionals (!isNull cfg.authKey) [ "cisco-authentication ${toString cfg.authKey}" ]
+          ++ optionals (!isNull cfg.maps) cfg.maps;
       in
       ''
         interface ${n}
           ${concatStringsSep "\n  " body}
-      ''
-    ;
+      '';
 
     environment.etc."opennhrp/opennhrp-script".source = pkgs.substituteAll {
       src = ./opennhrp-script;
