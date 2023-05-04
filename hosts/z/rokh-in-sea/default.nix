@@ -7,6 +7,7 @@
     ../../optionals/pkgs/basic.nix
     # ../../optionals/services/tailscale.nix
     ../../optionals/services/dmvpn
+    ../../optionals/services/fail2ban.nix
 
     ../../users/tyw.nix
     ../../users/root.nix

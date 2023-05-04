@@ -32,6 +32,7 @@
   networking.search = [ "c70.us" ];
 
   networking.firewall.enable = false;
+  networking.nftables.enable = true;
 
   users.mutableUsers = lib.mkDefault false;
 }
