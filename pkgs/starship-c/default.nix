@@ -6,22 +6,22 @@
 }:
 stdenv.mkDerivation rec {
   name = "starship-c-${version}";
-  version = "c20230425";
+  version = "c20230615";
 
   src = fetchurl (
     if stdenv.system == "x86_64-darwin"
     then {
       url = "https://github.com/tywtyw2002/starship/releases/download/${version}/starship-x86_64-apple-darwin.tar.gz";
-      sha256 = "ddc259c9479c2f175791e902591f1a7fdf2a54b0278fa0cd396552db9e034214";
+      sha256 = "3e01d0ad3572286d7667450c38808f60822e30bf3882c6d7e43e991bb00c0cea";
     }
     else if stdenv.system == "aarch64-linux"
     then {
       url = "https://github.com/tywtyw2002/starship/releases/download/${version}/starship-aarch64-unknown-linux-gnu.tar.gz";
-      sha256 = "0c70b9778f085358dccde05add1edaa14c2175fc216c94e160702b0588d6e180";
+      sha256 = "c0c3688bfc317102067441195cee0743d6851020818a716ea2e7cf240e508245";
     }
     else {
       url = "https://github.com/tywtyw2002/starship/releases/download/${version}/starship-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "c82bdeb94b50e847ca1659af611eb947c0a038652db06f4551a7523fe66dcb66";
+      sha256 = "2a53c9a0c8700f81670ccdac13b63c3f1be4615b59ae401a1d193defa6b907dd";
     }
   );
 
