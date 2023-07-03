@@ -5,10 +5,25 @@
 let
   sys = "x86_64-linux";
   rootPath = toString ../.;
+  inherit (inputs.nixpkgs) lib;
+  recursiveMerge = attrList:
+    with lib;
+    let f = attrPath:
+      zipAttrsWith (n: values:
+        if tail values == []
+          then head values
+        # else if all isList values
+        #   # then unique (concatLists values)
+        #   then values
+        else if all isAttrs values
+          then f (attrPath ++ [n]) values
+        else last values
+      );
+    in f [] attrList;
 in
 rec
 {
-  mkImport = path: override: attrs @ { config, ... }: import path { inherit config; } // override;
+  mkImport = path: override: attrs @ { config, ... }: recursiveMerge [ (import path { inherit config; }) override];
 
   # mkHome = path: attrs @ { defaultSystem ? sys
   #                , override ? { }
