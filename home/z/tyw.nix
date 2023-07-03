@@ -8,6 +8,7 @@
 
   cdot.enable = true;
   cnvim.enable = true;
+  cli.starship = true;
   cli.nix = true;
   cli.dev.langs = [ "lua" "rust" ];
 
