@@ -22,6 +22,7 @@ in
       # nix-du
       # nix-index
       nix-tree
+      nix-info
     ];
   };
 }

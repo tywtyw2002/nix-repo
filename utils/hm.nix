@@ -34,7 +34,7 @@ rec
   mkHome = path: override @ { defaultSystem ? sys, ... }:
     let
       inherit (inputs.home-manager.lib) homeManagerConfiguration;
-      pkgs = inputs.nixpkgs.legacyPackages.${defaultSystem};
+      pkgs = import inputs.nixpkgs {system = defaultSystem;};
       # realPath = toString path;
     in
     homeManagerConfiguration {
