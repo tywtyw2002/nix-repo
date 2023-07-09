@@ -1,5 +1,6 @@
 builds:
  exclude:
  - 'packages.*.starship-c'
+ - 'packages.*.wireproxy'
  include:
  - 'packages.*.*'
