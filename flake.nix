@@ -42,8 +42,8 @@
       inherit (self) outputs;
 
       forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
-      forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
-      # lxcTarball = import ./machines/lxc/z/default-gen.nix { inherit inputs outputs; };
+      forEachPkgs = f: forEachSystem (sys: f (import nixpkgs { system = sys; }));
+      # lxcTarball = import ./machines/lxc/z/default-gen.nix { inherit inputs outputs; };    in
     in
     {
       rootPath = self;
@@ -53,7 +53,11 @@
       overlays = import ./overlays { inherit inputs outputs; };
 
       formatter = forEachPkgs (pkgs: pkgs.nixpkgs-fmt);
-      packages = forEachPkgs (pkgs: import ./pkgs { inherit pkgs; });
+      packages = forEachPkgs (pkgs:
+        import ./pkgs {
+          inherit pkgs;
+          inherit (outputs) rootPath;
+        });
       # // {"x86_64-linux" = lxcTarball;};
       # devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
 
