@@ -1,4 +1,7 @@
-{ pkgs , rootPath ? ../. }: rec {
+{ pkgs
+, rootPath ? ../.
+,
+}: rec {
   # mkFakeDerivation
   mkFakeDerivation = attrs: outputs:
     let
@@ -31,7 +34,7 @@
   importTomlPkg = { name, ... }:
     with builtins; let
       system = pkgs.system;
-      pkg_conf = fromTOML (readFile "${rootPath}/pkgs/z_packages/${name}.toml" );
+      pkg_conf = fromTOML (readFile "${rootPath}/pkgs/z_packages/${name}.toml");
     in
     if (hasAttr system pkg_conf)
     then
