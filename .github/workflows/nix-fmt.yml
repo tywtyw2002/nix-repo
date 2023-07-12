@@ -2,8 +2,6 @@ name: Format Nix Code
 
 on:
   push:
-    # paths:
-    #   - "**.nix"
     branches:
       - ci
       - 'ci/**'
@@ -12,18 +10,19 @@ jobs:
   format-code:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - name: Install Nix
-        uses: cachix/install-nix-action@v22
+        uses: nixbuild/nix-quick-install-action@v24
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          nix_path: nixpkgs=channel:nixos-unstable
+          nix_conf: |
+            build-users-group =
+            experimental-features = nix-command flakes
 
-      - name: alejandra format
+      - name: format nix
         continue-on-error: true
-        run: nix-shell -p alejandra --run 'alejandra ./'
-      - name: nixpkgs-fmt
-        run: nix fmt
+        run: |
+          nix-env -iA alejandra nixpkgs-fmt -f https://github.com/tywtyw2002/nx-direct/tarball/nx
+          alejandra ./
+          nixpkgs-fmt ./
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
