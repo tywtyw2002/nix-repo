@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Install Nix
         uses: nixbuild/nix-quick-install-action@v24
         with:
@@ -20,7 +20,6 @@ jobs:
             experimental-features = nix-command flakes
 
       - name: format nix
-        continue-on-error: true
         run: |
           nix-env -iA alejandra nixpkgs-fmt -f https://github.com/tywtyw2002/nx-direct/tarball/nx
           alejandra ./
