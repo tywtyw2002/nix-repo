@@ -1,0 +1,26 @@
+name: Flake.lock Trigger
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'flake.lock'
+
+jobs:
+  callTheTrigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: nx-direct
+        run: |
+          curl -XPOST -u "tywtyw2002:${{secrets.PAT_TOKEN}}" \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/tywtyw2002/nx-direct/actions/workflows/build.yaml/dispatches --data '{"ref": "master"}'
+
+      - name: nx-direct
+        run: |
+          curl -XPOST -u "tywtyw2002:${{secrets.PAT_TOKEN}}" \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/tywtyw2002/wireproxy/actions/workflows/build.yaml/dispatches --data '{"ref": "master"}'
