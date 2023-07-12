@@ -1,9 +1,10 @@
-{ inputs
-, lib
-, pkgs
-, config
-, outputs
-, ...
+{
+  inputs,
+  lib,
+  pkgs,
+  config,
+  outputs,
+  ...
 }:
 with lib; {
   nixpkgs = {
@@ -17,7 +18,7 @@ with lib; {
   nix = {
     package = mkDefault pkgs.nix;
     settings = {
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      experimental-features = ["nix-command" "flakes" "repl-flake"];
       warn-dirty = false;
     };
   };

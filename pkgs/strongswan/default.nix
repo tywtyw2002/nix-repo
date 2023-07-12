@@ -1,33 +1,33 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, autoreconfHook
-, perl
-, gperf
-, bison
-, flex
-, gmp
-, python3
-, iptables
-, ldns
-, unbound
-, openssl
-, pcsclite
-, glib
-, openresolv
-, systemd
-, pam
-, curl
-, enableTNC ? true
-, trousers
-, sqlite
-, libxml2
-, enableNetworkManager ? false
-, networkmanager
-, darwin
-, nixosTests
-,
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  perl,
+  gperf,
+  bison,
+  flex,
+  gmp,
+  python3,
+  iptables,
+  ldns,
+  unbound,
+  openssl,
+  pcsclite,
+  glib,
+  openresolv,
+  systemd,
+  pam,
+  curl,
+  enableTNC ? true,
+  trousers,
+  sqlite,
+  libxml2,
+  enableNetworkManager ? false,
+  networkmanager,
+  darwin,
+  nixosTests,
 }:
 # Note on curl support: If curl is built with gnutls as its backend, the
 # strongswan curl plugin may break.
@@ -45,13 +45,13 @@ stdenv.mkDerivation rec {
 
   dontPatchELF = true;
 
-  nativeBuildInputs = [ pkg-config autoreconfHook perl gperf bison flex ];
+  nativeBuildInputs = [pkg-config autoreconfHook perl gperf bison flex];
   buildInputs =
-    [ curl gmp python3 ldns unbound openssl pcsclite ]
-    ++ lib.optionals enableTNC [ trousers sqlite libxml2 ]
-    ++ lib.optionals stdenv.isLinux [ systemd.dev pam iptables ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ SystemConfiguration ])
-    ++ lib.optionals enableNetworkManager [ networkmanager glib ];
+    [curl gmp python3 ldns unbound openssl pcsclite]
+    ++ lib.optionals enableTNC [trousers sqlite libxml2]
+    ++ lib.optionals stdenv.isLinux [systemd.dev pam iptables]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [SystemConfiguration])
+    ++ lib.optionals enableNetworkManager [networkmanager glib];
 
   patches = [
     ./ext_auth-path.patch
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
       "--enable-connmark"
       "--enable-af-alg"
     ]
-    ++ lib.optionals stdenv.isx86_64 [ "--enable-aesni" "--enable-rdrand" ]
+    ++ lib.optionals stdenv.isx86_64 ["--enable-aesni" "--enable-rdrand"]
     ++ lib.optional (stdenv.hostPlatform.system == "i686-linux") "--enable-padlock"
     ++ lib.optionals enableTNC [
       "--disable-gmp"
@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.cc.isGNU "-lgcc_s";
 
-  passthru.tests = { inherit (nixosTests) strongswan-swanctl; };
+  passthru.tests = {inherit (nixosTests) strongswan-swanctl;};
 
   meta = with lib; {
     description = "OpenSource IPsec-based VPN Solution";

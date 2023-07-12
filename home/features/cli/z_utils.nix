@@ -1,14 +1,13 @@
-{ config
-, options
-, pkgs
-, lib
-, ...
-}:
-let
-  cfg = config.cli.utils;
-in
 {
-  options.cli.utils = lib.mkEnableOption "cli.utils" // { default = true; };
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.cli.utils;
+in {
+  options.cli.utils = lib.mkEnableOption "cli.utils" // {default = true;};
 
   config = lib.mkIf cfg {
     home.packages = with pkgs; [

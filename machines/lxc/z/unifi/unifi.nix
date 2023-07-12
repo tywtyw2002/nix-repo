@@ -1,9 +1,10 @@
-{ config
-, options
-, lib
-, pkgs
-, utils
-, ...
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  utils,
+  ...
 }:
 with lib; let
   cfg = config.services.unifi;
@@ -14,9 +15,8 @@ with lib; let
         ${optionalString (cfg.maximumJavaHeapSize != null) "-Xmx${(toString cfg.maximumJavaHeapSize)}m"} \
         -jar ${stateDir}/lib/ace.jar
   '';
-in
-{
-  disabledModules = [ "services/networking/unifi.nix" ];
+in {
+  disabledModules = ["services/networking/unifi.nix"];
 
   options = {
     services.unifi.enable = mkOption {
@@ -97,7 +97,7 @@ in
       description = "UniFi controller daemon user";
       home = "${stateDir}";
     };
-    users.groups.unifi = { };
+    users.groups.unifi = {};
 
     networking.firewall = mkIf cfg.openFirewall {
       # https://help.ubnt.com/hc/en-us/articles/218506997
@@ -115,8 +115,8 @@ in
 
     systemd.services.unifi = {
       description = "UniFi controller daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       # This a HACK to fix missing dependencies of dynamic libs extracted from jars
       environment.LD_LIBRARY_PATH = with pkgs.stdenv; "${cc.cc.lib}/lib";
@@ -166,7 +166,7 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
 
         StateDirectory = "unifi";
         RuntimeDirectory = "unifi";
@@ -198,9 +198,9 @@ in
     };
   };
   imports = [
-    (mkRemovedOptionModule [ "services" "unifi" "dataDir" ] "You should move contents of dataDir to /var/lib/unifi/data")
-    (mkRenamedOptionModule [ "services" "unifi" "openPorts" ] [ "services" "unifi" "openFirewall" ])
+    (mkRemovedOptionModule ["services" "unifi" "dataDir"] "You should move contents of dataDir to /var/lib/unifi/data")
+    (mkRenamedOptionModule ["services" "unifi" "openPorts"] ["services" "unifi" "openFirewall"])
   ];
 
-  meta.maintainers = with lib.maintainers; [ pennae ];
+  meta.maintainers = with lib.maintainers; [pennae];
 }

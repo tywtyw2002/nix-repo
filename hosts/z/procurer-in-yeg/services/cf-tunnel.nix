@@ -1,6 +1,7 @@
-{ config
-, pkgs
-, ...
+{
+  config,
+  pkgs,
+  ...
 }: {
   sops.secrets."cf_tunnel/procurer-in-yeg" = {
     owner = "cloudflared";

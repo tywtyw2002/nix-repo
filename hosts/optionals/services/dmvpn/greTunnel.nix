@@ -1,13 +1,13 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 with lib; let
   cfg = config.services.dmvpn;
   n = cfg.interfaceName;
-in
-{
+in {
   options.services.dmvpn = {
     interfaceName = mkOption {
       type = types.str;
@@ -43,14 +43,14 @@ in
     systemd.services."${n}-netdev" = {
       enable = true;
       description = "DMVPN GRE Tunnel Interface ${n}";
-      wantedBy = [ "network-setup.service" ];
+      wantedBy = ["network-setup.service"];
       # bindsTo = deps;
-      partOf = [ "network-setup.service" ];
-      after = [ "network-pre.target" ];
-      before = [ "network-setup.service" ];
+      partOf = ["network-setup.service"];
+      after = ["network-pre.target"];
+      before = ["network-setup.service"];
       serviceConfig.Type = "oneshot";
       serviceConfig.RemainAfterExit = true;
-      path = [ pkgs.iproute2 ];
+      path = [pkgs.iproute2];
       script = ''
         # Remove Dead Interfaces
         ip link show "${n}" >/dev/null 2>&1 \

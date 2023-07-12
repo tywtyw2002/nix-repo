@@ -15,7 +15,7 @@
 
   homeOverride = {
     cli.starship = false;
-    cli.dev.langs = [ ];
+    cli.dev.langs = [];
     cli.nix = false;
   };
 

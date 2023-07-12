@@ -1,8 +1,9 @@
-{ config
-, options
-, pkgs
-, lib
-, ...
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
 }:
 with lib; let
   # rust-overlay = import <rust-overlay> {};
@@ -15,22 +16,20 @@ with lib; let
         value = true;
       })
       langs);
-in
-{
+in {
   options.cli.dev = {
     langs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
     };
     python = mkEnableOption "cli.dev.python";
     lua = mkEnableOption "cli.dev.lua";
     rust = mkEnableOption "cli.dev.rust";
   };
 
-  config =
-    let
-      devCfg = applyLangs cfg.langs cfg;
-    in
+  config = let
+    devCfg = applyLangs cfg.langs cfg;
+  in
     mkMerge [
       (mkIf devCfg.python {
         home.packages = with pkgs; [

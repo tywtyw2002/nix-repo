@@ -1,6 +1,7 @@
-{ config
-, pkgs
-, ...
+{
+  config,
+  pkgs,
+  ...
 }: {
   sops.secrets."cf_tunnel/rokh-in-sea" = {
     owner = "cloudflared";

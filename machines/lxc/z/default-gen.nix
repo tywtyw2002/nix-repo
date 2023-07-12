@@ -1,6 +1,7 @@
-{ inputs
-, outputs
-, ...
+{
+  inputs,
+  outputs,
+  ...
 }:
 with inputs.nixos-generators; let
   mkContainer = path:
@@ -8,12 +9,11 @@ with inputs.nixos-generators; let
       # inherit system;
       system = "x86_64-linux";
       format = "proxmox-lxc";
-      specialArgs = { inherit inputs outputs; };
+      specialArgs = {inherit inputs outputs;};
       modules = [
         (import path)
       ];
     };
-in
-{
+in {
   unifi = mkContainer ./unifi;
 }

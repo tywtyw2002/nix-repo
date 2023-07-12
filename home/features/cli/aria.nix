@@ -1,13 +1,13 @@
-{ config
-, options
-, pkgs
-, lib
-, ...
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
 }:
 with lib; let
   cfg = config.cli.aria2;
-in
-{
+in {
   options.cli.aria2 = {
     enable = lib.mkEnableOption "cli.aria2";
     downloadPath = lib.mkOption {

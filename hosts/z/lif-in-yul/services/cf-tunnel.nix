@@ -1,6 +1,7 @@
-{ config
-, pkgs
-, ...
+{
+  config,
+  pkgs,
+  ...
 }: {
   sops.secrets."cf_tunnel/lif-in-yul" = {
     owner = "cloudflared";

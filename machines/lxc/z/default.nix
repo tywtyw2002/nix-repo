@@ -1,18 +1,18 @@
-{ inputs
-, outputs
-, ...
+{
+  inputs,
+  outputs,
+  ...
 }:
 with inputs.nixpkgs.lib; let
   mkContainer = path:
     nixosSystem {
       # inherit system;
       system = "x86_64-linux";
-      specialArgs = { inherit inputs outputs; };
+      specialArgs = {inherit inputs outputs;};
       modules = [
         (import path)
       ];
     };
-in
-{
+in {
   lxc_unifi = mkContainer ./unifi;
 }

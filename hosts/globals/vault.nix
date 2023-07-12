@@ -1,26 +1,26 @@
-{ lib
-, options
-, config
-, ...
+{
+  lib,
+  options,
+  config,
+  ...
 }:
 with lib; let
   loadVault = fpath:
     if (builtins.pathExists fpath)
     then (builtins.fromTOML (builtins.readFile fpath))
-    else { };
-in
-{
+    else {};
+in {
   options.cVault = {
     system = with lib;
       mkOption {
         type = with types; attrs;
-        default = { };
+        default = {};
       };
 
     host = with lib;
       mkOption {
         type = with types; attrs;
-        default = { };
+        default = {};
       };
   };
 

@@ -1,7 +1,8 @@
-{ lib
-, inputs
-, outputs
-, ...
+{
+  lib,
+  inputs,
+  outputs,
+  ...
 }: {
   imports =
     [
@@ -17,8 +18,8 @@
 
   home-manager = {
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs outputs; };
-    sharedModules = [ "${outputs.rootPath}/home" ];
+    extraSpecialArgs = {inherit inputs outputs;};
+    sharedModules = ["${outputs.rootPath}/home"];
   };
 
   nixpkgs = {
@@ -29,7 +30,7 @@
   };
 
   networking.domain = "c70.us";
-  networking.search = [ "c70.us" ];
+  networking.search = ["c70.us"];
 
   networking.firewall.enable = false;
   networking.nftables.enable = true;

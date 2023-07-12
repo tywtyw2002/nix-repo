@@ -21,7 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,38 +39,36 @@
     # };
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , ...
-    } @ inputs:
-    let
-      inherit (self) outputs;
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
 
-      forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
-      forEachPkgs = f: forEachSystem (sys: f (import nixpkgs { system = sys; }));
-      # lxcTarball = import ./machines/lxc/z/default-gen.nix { inherit inputs outputs; };    in
-    in
-    {
-      rootPath = self;
-      # nixosModules = import ./modules;
-      nixosModules = { };
+    forEachSystem = nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-linux"];
+    forEachPkgs = f: forEachSystem (sys: f (import nixpkgs {system = sys;}));
+    # lxcTarball = import ./machines/lxc/z/default-gen.nix { inherit inputs outputs; };    in
+  in {
+    rootPath = self;
+    # nixosModules = import ./modules;
+    nixosModules = {};
 
-      overlays = import ./overlays { inherit inputs outputs; };
+    overlays = import ./overlays {inherit inputs outputs;};
 
-      formatter = forEachPkgs (pkgs: pkgs.nixpkgs-fmt);
-      packages = forEachPkgs (pkgs:
-        import ./pkgs {
-          inherit pkgs;
-          inherit (outputs) rootPath;
-        });
-      # // {"x86_64-linux" = lxcTarball;};
-      # devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
+    formatter = forEachPkgs (pkgs: pkgs.nixpkgs-fmt);
+    packages = forEachPkgs (pkgs:
+      import ./pkgs {
+        inherit pkgs;
+        inherit (outputs) rootPath;
+      });
+    # // {"x86_64-linux" = lxcTarball;};
+    # devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
 
-      # templates = import ./templates;
+    # templates = import ./templates;
 
-      nixosConfigurations = import ./hosts/z { inherit inputs outputs; } // (import ./machines/lxc/z { inherit inputs outputs; });
-      homeConfigurations = import ./home/z { inherit inputs outputs; };
-    };
+    nixosConfigurations = import ./hosts/z {inherit inputs outputs;} // (import ./machines/lxc/z {inherit inputs outputs;});
+    homeConfigurations = import ./home/z {inherit inputs outputs;};
+  };
 }

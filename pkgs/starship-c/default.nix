@@ -1,8 +1,8 @@
-{ stdenv
-, lib
-, installShellFiles
-, fetchurl
-,
+{
+  stdenv,
+  lib,
+  installShellFiles,
+  fetchurl,
 }:
 stdenv.mkDerivation rec {
   name = "starship-c-${version}";
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "A minimal, blazing fast, and extremely customizable prompt for any shell";
     homepage = "https://starship.rs";
     # maintainers = with maintainers; [ tywtyw2002 ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" ];
+    platforms = ["x86_64-linux" "x86_64-darwin" "aarch64-linux"];
   };
 }

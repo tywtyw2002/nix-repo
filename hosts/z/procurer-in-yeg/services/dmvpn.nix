@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   services.dmvpn = {
     enable = true;
     broadcast = "10.100.0.255";

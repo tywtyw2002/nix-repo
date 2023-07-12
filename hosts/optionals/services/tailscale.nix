@@ -1,14 +1,14 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 with lib; let
   cfg = config.services.tailscale;
   isNetworkd = config.networking.useNetworkd;
-in
-{
-  disabledModules = [ "services/networking/tailscale.nix" ];
+in {
+  disabledModules = ["services/networking/tailscale.nix"];
 
   options.services.tailscale = {
     enable = mkEnableOption (lib.mdDoc "Tailscale client daemon");
@@ -32,10 +32,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.tailscale ]; # for the CLI
-    systemd.packages = [ pkgs.tailscale ];
+    environment.systemPackages = [pkgs.tailscale]; # for the CLI
+    systemd.packages = [pkgs.tailscale];
     systemd.services.tailscaled = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = [
         # config.networking.resolvconf.package # for configuring DNS in some configs
         # pkgs.procps     # for collecting running services (opt-in feature)
@@ -61,7 +61,7 @@ in
       stopIfChanged = false;
     };
 
-    networking.dhcpcd.denyInterfaces = [ cfg.interfaceName ];
+    networking.dhcpcd.denyInterfaces = [cfg.interfaceName];
 
     systemd.network.networks."50-tailscale" = mkIf isNetworkd {
       matchConfig = {

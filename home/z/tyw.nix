@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   # imports = [
   #   ../.
   # ];
@@ -10,7 +10,7 @@
   cnvim.enable = true;
   cli.starship = true;
   cli.nix = true;
-  cli.dev.langs = [ "lua" "rust" ];
+  cli.dev.langs = ["lua" "rust"];
 
   # cli.git.signing.signByDefault = false;
 

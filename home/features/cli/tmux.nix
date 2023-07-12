@@ -1,15 +1,14 @@
-{ config
-, options
-, pkgs
-, lib
-, ...
-}:
-let
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}: let
   cfg = config.cli.tmux;
   cdotEnable = config.cdot.enable;
-in
-{
-  options.cli.tmux = lib.mkEnableOption "cli.tmux" // { default = true; };
+in {
+  options.cli.tmux = lib.mkEnableOption "cli.tmux" // {default = true;};
 
   config = lib.mkMerge [
     {

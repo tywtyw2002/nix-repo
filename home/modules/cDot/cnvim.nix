@@ -1,14 +1,14 @@
-{ config
-, options
-, pkgs
-, lib
-, ...
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
 }:
 with lib; let
   cfg = config.cnvim;
   agebin = lib.getExe pkgs.rage;
-in
-{
+in {
   options.cnvim = {
     root = mkOption {
       type = types.str;
@@ -19,7 +19,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.activation.cNvimCloner = lib.hm.dag.entryAfter [ "cDotCloner" ] ''
+    home.activation.cNvimCloner = lib.hm.dag.entryAfter ["cDotCloner"] ''
       sops_token_path=${config.sops.secrets.cdot_github_token.path}
       if [ "''${sops_token_path:0:2}" == "%s" ]; then
         sops_token_path="$XDG_RUNTIME_DIR''${sops_token_path:2}"

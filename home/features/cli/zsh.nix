@@ -1,20 +1,20 @@
-{ config
-, options
-, pkgs
-, lib
-, ...
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
 }:
 with lib; let
   cfg = config.cli.zsh;
   cdotRoot = "$HOME/.config/zsh"; # config.cdot.root
   zshInitPath = "${cdotRoot}/${cfg.cdotZshInit}";
-in
-{
+in {
   options.cli.zsh = {
-    cdotEnable = lib.mkEnableOption "zsh cdot cfg" // { default = true; };
+    cdotEnable = lib.mkEnableOption "zsh cdot cfg" // {default = true;};
     zshConfig = lib.mkOption {
-      type = with types; attrsOf (oneOf [ bool float int str ]);
-      default = { };
+      type = with types; attrsOf (oneOf [bool float int str]);
+      default = {};
     };
     cdotZshInit = lib.mkOption {
       type = types.str;
@@ -37,7 +37,7 @@ in
 
     # config from cdot repo
     (lib.mkIf cfg.cdotEnable {
-      home.packages = with pkgs; [ zsh nix-zsh-completions ];
+      home.packages = with pkgs; [zsh nix-zsh-completions];
 
       programs.zsh.enable = false;
 

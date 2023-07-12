@@ -1,16 +1,16 @@
-{ config
-, options
-, pkgs
-, lib
-, ...
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
 }:
 with lib; let
   cfg = config.cli.git;
-in
-{
+in {
   options.cli.git = lib.mkOption {
-    type = with types; attrsOf (oneOf [ bool float int str ]);
-    default = { };
+    type = with types; attrsOf (oneOf [bool float int str]);
+    default = {};
   };
 
   config.programs.git =
@@ -26,7 +26,7 @@ in
 
       lfs.enable = true;
 
-      ignores = [ ".direnv" ".DS_Store" ".Spotlight-V100" ".Trashes" ];
+      ignores = [".direnv" ".DS_Store" ".Spotlight-V100" ".Trashes"];
       extraConfig = {
         branch.autoSetupRebase = "always";
         checkout.defaultRemote = "origin";

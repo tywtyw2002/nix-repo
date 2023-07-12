@@ -1,21 +1,19 @@
-{ config
-, options
-, pkgs
-, lib
-, ...
-}:
-let
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}: let
   cfg = config.cli.starship;
   cdotEnable = config.cdot.enable;
-in
-{
+in {
   options.cli.starship = lib.mkEnableOption "cli.starship";
 
   config = lib.mkMerge (
     let
       starship-c = pkgs.starship-c;
-    in
-    [
+    in [
       {
         programs.starship = {
           package = starship-c;

@@ -1,9 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, # , pkg-config
-  c-ares
-,
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  # , pkg-config
+  c-ares,
 }:
 stdenv.mkDerivation rec {
   pname = "opennhrp";
@@ -19,13 +19,13 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
 
   # nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ c-ares ];
+  buildInputs = [c-ares];
 
   patches = [
     ./0008-fix-builds-with-gcc10.patch
   ];
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" "SBINDIR=/sbin" ];
+  makeFlags = ["DESTDIR=${placeholder "out"}" "SBINDIR=/sbin"];
 
   meta = with lib; {
     description = "OpenNHRP is an NHRP implementation for Linux";
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.alpinelinux.org/alpine/aports/-/tree/master/main/opennhrp
     # https://github.com/vyos/vyos-opennhrp
     license = licenses.mit;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = ["x86_64-linux" "aarch64-linux"];
     # maintainers = with maintainers; [ tywtyw2002 ];
   };
 }

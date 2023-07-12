@@ -1,15 +1,14 @@
-{ outputs
-, lib
-, config
-, ...
-}:
-let
+{
+  outputs,
+  lib,
+  config,
+  ...
+}: let
   hosts = outputs.nixosConfigurations;
   hostname = config.networking.hostName;
   pubKey = host: ../z/${host}/ssh_host_ed25519_key.pub;
   # pubKey =
-in
-{
+in {
   services.openssh = {
     enable = true;
     settings = {
@@ -33,11 +32,11 @@ in
     # Each hosts public key
     knownHosts =
       builtins.mapAttrs
-        (name: _: {
-          publicKeyFile = pubKey name;
-          extraHostNames = lib.optional (name == hostname) "localhost";
-        })
-        (lib.filterAttrs (n: v: !lib.hasPrefix "lxc" n) hosts);
+      (name: _: {
+        publicKeyFile = pubKey name;
+        extraHostNames = lib.optional (name == hostname) "localhost";
+      })
+      (lib.filterAttrs (n: v: !lib.hasPrefix "lxc" n) hosts);
   };
 
   security.pam.enableSSHAgentAuth = true;

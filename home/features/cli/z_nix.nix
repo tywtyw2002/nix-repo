@@ -1,13 +1,12 @@
-{ config
-, options
-, pkgs
-, lib
-, ...
-}:
-let
-  cfg = config.cli.nix;
-in
 {
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.cli.nix;
+in {
   options.cli.nix = lib.mkEnableOption "cli.nix";
 
   config = lib.mkIf cfg {

@@ -1,13 +1,13 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 with lib; let
   cfg = config.services.dmvpn;
   n = cfg.interfaceName;
-in
-{
+in {
   options.services.dmvpn = {
     ikeKey = mkOption {
       type = types.str;
@@ -15,8 +15,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.strongswan ]; # for the CLI
-    systemd.packages = [ pkgs.strongswan ];
+    environment.systemPackages = [pkgs.strongswan]; # for the CLI
+    systemd.packages = [pkgs.strongswan];
     services.strongswan-swanctl = {
       enable = true;
       # connections
@@ -32,11 +32,11 @@ in
         remote.default.auth = "psk";
 
         children."${n}" = {
-          esp_proposals = [ "aes128-sha1-modp1024" ];
+          esp_proposals = ["aes128-sha1-modp1024"];
           rekey_time = "3273s";
           rand_time = "540s";
-          local_ts = [ "dynamic[gre]" ];
-          remote_ts = [ "dynamic[gre]" ];
+          local_ts = ["dynamic[gre]"];
+          remote_ts = ["dynamic[gre]"];
           mode = "transport";
         };
       };

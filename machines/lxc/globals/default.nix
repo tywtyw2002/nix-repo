@@ -1,8 +1,9 @@
-{ lib
-, inputs
-, outputs
-, modulesPath
-, ...
+{
+  lib,
+  inputs,
+  outputs,
+  modulesPath,
+  ...
 }: {
   imports =
     [

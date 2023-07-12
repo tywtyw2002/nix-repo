@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 with lib; let
   cfg = config.services.zerotierone;
@@ -11,25 +12,23 @@ with lib; let
     then "1"
     else "0";
 
-  buildNetwork = name: values:
-    let
-      netId =
-        if values.networkId != null
-        then values.networkId
-        else if values.networkIdFile != null
-        then fileContents values.networkIdFile
-        else name;
-      netConfig = concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${mapOption v}") (filterAttrs (n: v: hasPrefix "allow" n) values));
-    in
+  buildNetwork = name: values: let
+    netId =
+      if values.networkId != null
+      then values.networkId
+      else if values.networkIdFile != null
+      then fileContents values.networkIdFile
+      else name;
+    netConfig = concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${mapOption v}") (filterAttrs (n: v: hasPrefix "allow" n) values));
+  in
     assert ! (hasPrefix "zt-" netId); ''
       touch "/var/lib/zerotier-one/networks.d/${netId}.conf"
       if [[ ! -e "/var/lib/zerotier-one/networks.d/${netId}.local.conf" ]]; then
         echo "${netConfig}" > "/var/lib/zerotier-one/networks.d/${netId}.local.conf"
       fi
     '';
-in
-{
-  disabledModules = [ "services/networking/zerotierone.nix" ];
+in {
+  disabledModules = ["services/networking/zerotierone.nix"];
   options.services.zerotierone = {
     enable = mkEnableOption (lib.mdDoc "ZeroTierOne");
     userspace = mkOption {
@@ -38,7 +37,7 @@ in
     };
 
     networks = mkOption {
-      type = types.attrsOf (types.submodule ({ name, ... }: {
+      type = types.attrsOf (types.submodule ({name, ...}: {
         options = {
           networkId = mkOption {
             type = with types; nullOr str;
@@ -84,7 +83,7 @@ in
         };
       }));
 
-      default = { };
+      default = {};
     };
 
     port = mkOption {
@@ -109,11 +108,11 @@ in
     systemd.services.zerotierone = {
       description = "ZeroTierOne";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "sops-nix.service" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target" "sops-nix.service"];
+      wants = ["network-online.target"];
 
-      path = [ cfg.package ];
+      path = [cfg.package];
 
       preStart =
         ''
@@ -122,25 +121,23 @@ in
           chown -R root:root /var/lib/zerotier-one
         ''
         + concatStringsSep "\n" (mapAttrsToList buildNetwork cfg.networks);
-      serviceConfig =
-        let
-          userspace = optionalString cfg.userspace "-U";
-        in
-        {
-          ExecStart = "${cfg.package}/bin/zerotier-one ${userspace} -p${toString cfg.port}";
-          Restart = "always";
-          KillMode = "process";
-          TimeoutStopSec = 5;
-        };
+      serviceConfig = let
+        userspace = optionalString cfg.userspace "-U";
+      in {
+        ExecStart = "${cfg.package}/bin/zerotier-one ${userspace} -p${toString cfg.port}";
+        Restart = "always";
+        KillMode = "process";
+        TimeoutStopSec = 5;
+      };
     };
 
     # ZeroTier does not issue DHCP leases, but some strangers might...
-    networking.dhcpcd.denyInterfaces = [ "zt*" ];
+    networking.dhcpcd.denyInterfaces = ["zt*"];
 
     # ZeroTier receives UDP transmissions
-    networking.firewall.allowedUDPPorts = [ cfg.port ];
+    networking.firewall.allowedUDPPorts = [cfg.port];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # Prevent systemd from potentially changing the MAC address
     systemd.network.links."50-zerotier" = {

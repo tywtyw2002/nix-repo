@@ -1,15 +1,15 @@
-{ config
-, options
-, pkgs
-, lib
-, cdot_scripts
-, ...
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  cdot_scripts,
+  ...
 }:
 with lib; let
   cfg = config.cdot;
   chezmoi = pkgs.chezmoi;
-in
-{
+in {
   options.cdot = {
     root = mkOption {
       type = types.str;
@@ -20,9 +20,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.chezmoi ];
+    home.packages = [pkgs.chezmoi];
 
-    home.activation.cDotCloner = lib.hm.dag.entryAfter [ "reloadSystemd" "onFilesChange" ] ''
+    home.activation.cDotCloner = lib.hm.dag.entryAfter ["reloadSystemd" "onFilesChange"] ''
       cloneHttpsRepo="https://github.com/tywtyw2002/coshim.dot.git"
       GIT_FULL_REPO="git@github.com:tywtyw2002/coshim.dot.git"
       GIT_BRANCH="next"
