@@ -25,6 +25,7 @@ in
     python = mkEnableOption "cli.dev.python";
     lua = mkEnableOption "cli.dev.lua";
     rust = mkEnableOption "cli.dev.rust";
+    c = mkEnableOption "cli.dev.c";
   };
 
   config =
@@ -62,6 +63,14 @@ in
           clippy
 
           rust-analyzer
+        ];
+      })
+
+      (mkIf devCfg.c {
+        home.packages = with pkgs; [
+          gcc
+          gnumake
+          cmake
         ];
       })
     ];
