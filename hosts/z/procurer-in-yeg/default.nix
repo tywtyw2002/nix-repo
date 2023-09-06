@@ -13,7 +13,7 @@
   ];
 
   homeOverride = {
-    cli.dev.langs = [ "rust" ];
+    cli.dev.langs = [ "rust" "lua" "c" ];
   };
 
   services.openssh.settings.PermitRootLogin = "yes";

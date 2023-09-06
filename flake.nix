@@ -33,6 +33,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nixos-generators = {
     #   url = "github:nix-community/nixos-generators";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -72,5 +77,6 @@
 
       nixosConfigurations = import ./hosts/z { inherit inputs outputs; } // (import ./machines/lxc/z { inherit inputs outputs; });
       homeConfigurations = import ./home/z { inherit inputs outputs; };
+      darwinConfigurations = import ./hosts/z.darwin { inherit inputs outputs; };
     };
 }

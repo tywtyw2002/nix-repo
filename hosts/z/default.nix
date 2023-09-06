@@ -2,8 +2,9 @@
 , outputs
 , ...
 }:
-with inputs.nixpkgs.lib; let
-  mkHost = path:
+let
+  mkHost = with inputs.nixpkgs.lib;
+    path:
     nixosSystem {
       # inherit system;
       specialArgs = { inherit inputs outputs; };
