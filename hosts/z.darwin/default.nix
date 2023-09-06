@@ -4,7 +4,10 @@
 }:
 let
   mkDarwin = with inputs.nix-darwin.lib;
-    path: { darwin_users ? [ "tyw" ], system ? "x86_64-darwin", ... }:
+    path: { darwin_users ? [ "tyw" ]
+          , system ? "x86_64-darwin"
+          , ...
+          }:
       darwinSystem {
         specialArgs = { inherit inputs outputs darwin_users system; };
         modules = [
@@ -16,5 +19,5 @@ let
       };
 in
 {
-  cmac = mkDarwin ./cmac {};
+  cmac = mkDarwin ./cmac { };
 }
