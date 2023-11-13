@@ -1,27 +1,27 @@
 [x86_64-darwin]
 name = "wireproxy-1.0.5-dev"
-path = "/nix/store/mw4y396i16zpbqkda5w2vv9qyidmw28k-wireproxy-1.0.5-dev"
+path = "/nix/store/07jzjglidf6n5f3hzbskv6vmmnl6w7k6-wireproxy-1.0.5-dev"
 pname = "wireproxy"
 system = "x86_64-darwin"
 version = "1.0.5-dev"
 
 [aarch64-darwin]
 name = "wireproxy-aarch64-apple-darwin-1.0.5-dev"
-path = "/nix/store/8z2x5zzivvd3b73k0qr6r7946y7yawgk-wireproxy-aarch64-apple-darwin-1.0.5-dev"
+path = "/nix/store/gr7n5pfglgdx1jl5kawkkmxnf256l8pz-wireproxy-aarch64-apple-darwin-1.0.5-dev"
 pname = "wireproxy"
 system = "aarch64-darwin"
 version = "1.0.5-dev"
 
 [x86_64-linux]
 name = "wireproxy-1.0.5-dev"
-path = "/nix/store/732xmqqydddrzwgrbw72aff001yflf4k-wireproxy-1.0.5-dev"
+path = "/nix/store/rxh6jca0k311ila5xjjgyyld3w8qn99z-wireproxy-1.0.5-dev"
 pname = "wireproxy"
 system = "x86_64-linux"
 version = "1.0.5-dev"
 
 [aarch64-linux]
 name = "wireproxy-aarch64-unknown-linux-gnu-1.0.5-dev"
-path = "/nix/store/a5cfc2d02aq82s0m09n5y95bp39ypfd8-wireproxy-aarch64-unknown-linux-gnu-1.0.5-dev"
+path = "/nix/store/25f6656r9mfjvlvqdwg6459np20k7a3c-wireproxy-aarch64-unknown-linux-gnu-1.0.5-dev"
 pname = "wireproxy"
 system = "aarch64-linux"
 version = "1.0.5-dev"
